@@ -1,21 +1,21 @@
 #include "monty.h"
 
 /**
- * push - Pushes (adds) an integer to the stack.
+ * _push - Pushes (adds) an integer to the stack.
  * @stack: The stack that the integer will be pushed to the top of.
  * @line_number: The line from which the integer will be pushed.
  * Return: N/A
  *
- * Description - "push" is an opcode that will extract an integer from the
+ * Description - "_push" is an opcode that will extract an integer from the
  * variable "line number", assign the integer the designation "value",
  * and append the integer to the top of the "stack".
  */
 
-void push(stack_t **stack, unsigned int line_number)
+void _push(stack_t **stack, unsigned int line_number)
 {
 	/*Parse the argument from the line*/
 	/*strtok or sscanf can be used to extract the int argument*/
-	int value; /*Extracted int value*/
+	int value = 0; /*Extracted int value*/
 
 	if (!value)
 	{
