@@ -6,7 +6,7 @@
  * @line_number: The line from which the integer will be pushed.
  * Return: N/A
  *
- * Description - "push" is a command that will extract an integer from the
+ * Description - "push" is an opcode that will extract an integer from the
  * variable "line number", assign the integer the designation "value",
  * and append the integer to the top of the "stack".
  */
