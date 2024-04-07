@@ -39,7 +39,15 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/*Global variable struct*/
+/**
+ * struct global_s - global variable structure
+ * @lifo: True if lifo, else false
+ * @current: The current node in the stack
+ * @arg: Input from the user
+ * @head: Head of the stack
+ * @fd: File descriptor
+ * @buffer: Size variable
+ */
 typedef struct global_s
 {
 	int lifo;

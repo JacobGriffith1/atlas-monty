@@ -1,5 +1,7 @@
 #include "monty.h"
 
+global_t gvar;
+
 /**
  * free_gvar - Frees any global variables.
  * Return: N/A.
@@ -31,8 +33,8 @@ void start_gvar(FILE *fd)
 /**
  * input_checker - Verifies if the designated
  * file exists and can be opened.
- * @argc:
- * @argv:
+ * @argc: Argument count
+ * @argv: Argument vector
  * Return: file struct pointed to by fd
  */
 
