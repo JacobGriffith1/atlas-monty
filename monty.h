@@ -70,8 +70,8 @@ void (*get_opcodes(char *f))(stack_t **stack, unsigned int line_number);
 
 /*stack functions*/
 stack_t *add_nodevalue(stack_t **head, const int n);
-stack_t *add_nodevalue_end(stack_t **stack, const int n);
-stack_t free_node(stack_t *stack);
+stack_t *add_nodevalue_end(stack_t **head, const int n);
+stack_t free_node(stack_t *head);
 
 /*main*/
 void free_gvar(void);
