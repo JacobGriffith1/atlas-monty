@@ -1,9 +1,13 @@
 #ifndef _MONTY_H_
 #define _MONTY_H_
 
+#include <ctype.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -35,8 +39,18 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/*Global stack variable*/
-stack_t *global_stack;
+/*Global variable struct*/
+typedef struct global_s
+{
+	int lifo;
+	unsigned int current;
+	char *arg;
+	stack_t *head;
+	FILE *fd;
+	char *buffer;
+} global_t;
+
+extern global_t gvar;
 
 /*opcode instructions*/
 void _push(stack_t **stack, unsigned int line_number);
@@ -52,6 +66,14 @@ void _mul(stack_t **stack, unsigned int line_number);
 void _mod(stack_t **stack, unsigned int line_number);
 
 /*get opcode function*/
-void (*_get_opcodes(char *opc))(stack_t **stack, unsigned int line_number);
+void (*get_opcodes(char *f))(stack_t **stack, unsigned int line_number);
+
+/*stack functions*/
+stack_t *add_nodevalue(stack_t **head, const int n);
+stack_t *add_nodevalue_end(stack_t **stack, const int n);
+stack_t free_node(stack_t *stack);
+
+/*main*/
+void free_gvar(void);
 
 #endif

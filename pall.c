@@ -1,24 +1,27 @@
 #include "monty.h"
 
 /**
- * _pall - Prints all values on the stack; LIFO.
- * @stack: The stack of integers. Will be printed with pall.
- * @line_number: UNUSED
+ * _pall - Prints all values on the stack.
+ * @stack: The head of the stack.
+ * @line_number: Line number. Unused in this opcode.
  * Return: N/A
  *
- * Description - "_pall" is an opcode that prints all values of the
- * "stack"; iterating through them by reassigning the value of
- * "current"; which corresponds to the top element in the stack.
+ * Description - "_pall" is an opcode used to print all the values on the
+ * stack. It does this with a linked list, using a pointer called "node",
+ * which signifies the position in the stack, to traverse the stack,
+ * printing the value contained within the node to stdout using printf.
  */
 
 void _pall(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current = *stack;
+	stack_t *node;
+	(void)line_number;
 
-	while (current)
+	node = *stack;
+
+	while (node)
 	{
-		printf("%d\n", current->n);
-		current = current->next;
+		printf("%d\n", node->n);
+		node = node->next;
 	}
-	(void)line_number; /*UNUSED*/
 }

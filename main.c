@@ -1,57 +1,102 @@
 #include "monty.h"
 
+global_t gvar;
+
 /**
- * main - The main function of the Monty interpreter.
- * @argc: Argument count.
- * @argv: Argument vector.
- * Return: EXIT_SUCCESS
- *
- * Description - "main" is a function that is responsible for conducting
- * the actions taken by the Monty bytecode interpreter. It checks if the
- * entered command is formatted correctly (printing an error message if not)
- * and then iterates through each line, executing the contained instructions.
+ * free_gvar - Frees any global variables.
+ * Return: N/A.
  */
 
-int main(int argc, char *argv[])
+void free_gvar(void)
 {
+	free_node(gvar.head);
+	free(gvar.buffer);
+	fclose(gvar.fd);
+}
+
+/**
+ * start_gvar - Initializes global variables.
+ * @fd: File descriptor.
+ * Return: N/A.
+ */
+
+void start_gvar(FILE *fd)
+{
+	gvar.lifo = 1;
+	gvar.current = 1;
+	gvar.arg = NULL;
+	gvar.head = NULL;
+	gvar.fd = fd;
+	gvar.buffer = NULL;
+}
+
+/**
+ * input_checker - Verifies if the designated
+ * file exists and can be opened.
+ * @argc:
+ * @argv:
+ * Return: file struct pointed to by fd
+ */
+
+FILE *input_checker(int argc, char *argv[])
+{
+	FILE *fd;
+
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	FILE *file = fopen(argv[1], "r");
 
-	if (!file)
+	fd = fopen(argv[1], "r");
+
+	if (fd == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
-	/*Initialize the global stack*/
-	global_stack = NULL;
-	/*Parse the file line-by-line and execute the instructions*/
-	void (*f)(stack_t **stack, unsigned int line_number);
-	char *line = NULL;
-	size_t len = 0;
-	unsigned int line_number = 0;
-	char *parlines[2] = {NULL, NULL};
 
-	while (getline(&line, &len, file) != -1)
+	return (fd);
+}
+
+/**
+ * main - Entry point for the Monty program.
+ * @argc: Argument count.
+ * @argv: Argument vector.
+ * Return: 0 on success.
+ */
+
+int main(int argc, char *argv[])
+{
+	void (*f)(stack_t **stack, unsigned int line_number);
+	FILE *fd;
+	size_t size = 256;
+	ssize_t nlines = 0;
+	char *lines[2] = {NULL, NULL};
+
+	fd = input_checker(argc, argv);
+	start_gvar(fd);
+	nlines = getline(&gvar.buffer, &size, fd);
+	while (nlines != -1)
 	{
-		parlines[0] = strtok(line, " \t\n");
-		if (parlines[0] && parlines[0][0] != '#')
+		lines[0] = strtok(gvar.buffer, " \t\n");
+		if (lines[0] && lines[0][0] != '#')
 		{
-			f = _get_opcodes(parlines[0]);
+			f = get_opcodes(lines[0]);
 			if (!f)
 			{
-				fprintf(stderr, "Line %u: ", line_number);
-				fprintf(stderr, "Error: Unknown instruction %s\n", parlines[0]);
+				fprintf(stderr, "L%u: ", gvar.current);
+				fprintf(stderr, "unknown instruction %s\n", lines[0]);
+				free_gvar();
 				exit(EXIT_FAILURE);
 			}
-		line_number++;
+			gvar.arg = strtok(NULL, " \t\n");
+			f(&gvar.head, gvar.current);
 		}
+		nlines = getline(&gvar.buffer, &size, fd);
+		gvar.current++;
 	}
-	/*Clean up, close file*/
-	free(line);
-	fclose(file);
-	return (EXIT_SUCCESS);
+	free_gvar();
+
+	return (0);
 }

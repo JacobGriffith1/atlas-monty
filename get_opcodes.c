@@ -1,16 +1,31 @@
 #include "monty.h"
 
 /**
- * _get_opcodes - Selects opcode to execute.
+ * get_opcodes - Selects opcode to execute.
  * @opc: Opcode passed.
  * Return: Pointer to the function that executes opcode.
  */
 
-void (*_get_opcodes(char *opc))(stack_t **stack, unsigned int line_number)
+void (*get_opcodes(char *opc))(stack_t **stack, unsigned int line_number)
 {
 	instruction_t instruct[] = {
 		{"push", _push},
 		{"pall", _pall},
+		{"pint", _pint},
+		{"pop", _pop},
+		{"swap", _swap},
+		{"queue", _queue},
+		{"stack", _stack},
+		{"add", _add},
+		{"nop", _nop},
+		{"sub", _sub},
+		{"mul", _mul},
+		{"div", _div},
+		{"mod", _mod},
+		{"pchar", _pchar},
+		{"pstr", _pstr},
+		{"rotl", _rotl},
+		{"rotr", _rotr},
 		{NULL, NULL}
 	};
 	int i;
