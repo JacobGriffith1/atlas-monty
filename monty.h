@@ -72,6 +72,8 @@ void _sub(stack_t **stack, unsigned int line_number);
 void _div(stack_t **stack, unsigned int line_number);
 void _mul(stack_t **stack, unsigned int line_number);
 void _mod(stack_t **stack, unsigned int line_number);
+void _stack(stack_t **stack, unsigned int line_number);
+void _queue(stack_t **stack, unsigned int line_number);
 
 /*get opcode function*/
 void (*get_opcodes(char *f))(stack_t **stack, unsigned int line_number);
