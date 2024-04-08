@@ -28,19 +28,27 @@ void _add(stack_t **stack, unsigned int line_number)
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
-
 	temp = (*stack)->next;
 	temp->n += (*stack)->n;
 	_pop(stack, line_number);
 }
 
 /**
- * _sub -
+ * _sub - Subtracts top element to the second element of the stack
  * @stack: The stack.
  * @line_number: Line number.
  * Return: N/A
  *
- * Description -
+ * Description - "_sub" is an opcode that subtracts the value of the top
+ * element to that of the second element on the stack. The value pointed to
+ * by "(*stack)->n" (first node) is subtracted to the value pointed to by
+ * "temp->n" (second node), and then the top node is popped, leaving the
+ * appended value at the top of the stack.
+ *
+ * Author's note - that I personally find it fascinating how odd it sounds to 
+ * say 'subtract x to y' aloud, as opposed to 'subtract y from x', which is
+ * the way I learned to speak about subtraction, despite the fact that both
+ * phrases share the same literal meaning!
  */
 
 void _sub(stack_t **stack, unsigned int line_number)
@@ -59,6 +67,9 @@ void _sub(stack_t **stack, unsigned int line_number)
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
+	temp = (*stack)->next;
+	temp->n -= (*stack)->n;
+	_pop(stack, line_number);
 }
 
 /**
