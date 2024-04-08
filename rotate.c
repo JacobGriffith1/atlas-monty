@@ -21,6 +21,9 @@ void _rotl(stack_t **stack, unsigned int line_number)
 	if ((*stack)->next == NULL)
 		return;
 
+	temp1 = (*stack)->next;
+	temp2 = *stack;
+
 	for (; temp2->next != NULL; temp2 = temp2->next)
 		;
 
