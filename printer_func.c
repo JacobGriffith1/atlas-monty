@@ -6,7 +6,9 @@
  * @line_number: Line number
  * Return: N/A
  *
- * Description -
+ * Description - "_pchar" is an opcode that prints the character at the top of
+ * the stack. After checking for a valid character on the stack, the character
+ * is printed to stdout.
  */
 
 void _pchar(stack_t **stack, unsigned int line_number)
