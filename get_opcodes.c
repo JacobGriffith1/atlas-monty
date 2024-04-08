@@ -21,6 +21,7 @@ void (*get_opcodes(char *opc))(stack_t **stack, unsigned int line_number)
 		{"mod", _mod},
 		{"nop", _nop},
 		{"pchar", _pchar},
+		{"pstr", _pstr},
 		{NULL, NULL}
 	};
 	int i;

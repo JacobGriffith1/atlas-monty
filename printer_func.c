@@ -29,3 +29,31 @@ void _pchar(stack_t **stack, unsigned int line_number)
 	}
 	printf("%c\n", (*stack)->n);
 }
+
+/**
+ * _pstr - Prints the string starting at the top of the stack.
+ * @stack: The stack
+ * @line_number: Line number
+ * Return: N/A
+ *
+ * Description - "_pstr" is an opcode that prints the string of the stack.
+ * This works similarly to "_pchar", in that it checks for a valid ASCII
+ * character, but it proceeds to check the character of each position in the
+ * string, printing them to stdout as it proceeds.
+ */
+
+void _pstr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp;
+
+	void(line_number);
+
+	temp = *stack;
+
+	while (temp && temp->n > 0 && temp->n < 128)
+	{
+		printf("%c", temp->n);
+		temp = temp->next;
+	}
+	printf("\n");
+}
