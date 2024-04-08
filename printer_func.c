@@ -45,8 +45,7 @@ void _pchar(stack_t **stack, unsigned int line_number)
 void _pstr(stack_t **stack, unsigned int line_number)
 {
 	stack_t *temp;
-
-	void(line_number);
+	(void)line_number;
 
 	temp = *stack;
 
