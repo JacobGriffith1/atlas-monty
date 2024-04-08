@@ -7,7 +7,15 @@
  * @line_number: Line number.
  * Return: N/A
  *
- * Description -
+ * Description - "_rotl" is an opcode that moves the top element to the
+ * bottom; pushing each other element up by one position in turn. First, the
+ * "temp1" and "temp2" pointers are set. temp1 is set to "(*stack)->next" and
+ * temp2 to "*stack". "temp2->next" is moved linearly forward through the
+ * stack until it points to "NULL", at which point "temp2" itself will point
+ * to the last element on the stack. Now that the first, second, and last
+ * nodes are being pointed to, prev and next pointers are modified to put
+ * the previous head of the stack at the bottom, leaving the previous second
+ * element as the head.
  */
 
 void _rotl(stack_t **stack, unsigned int line_number)
