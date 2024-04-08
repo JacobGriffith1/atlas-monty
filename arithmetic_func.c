@@ -45,7 +45,7 @@ void _add(stack_t **stack, unsigned int line_number)
  * "temp->n" (second node), and then the top node is popped, leaving the
  * appended value at the top of the stack.
  *
- * Author's note - that I personally find it fascinating how odd it sounds to 
+ * Author's note - that I personally find it fascinating how odd it sounds to
  * say 'subtract x to y' aloud, as opposed to 'subtract y from x', which is
  * the way I learned to speak about subtraction, despite the fact that both
  * phrases share the same literal meaning!
@@ -104,12 +104,14 @@ void _mul(stack_t **stack, unsigned int line_number)
 	_pop(stack, line_number);
 }
 /**
- * _div -
+ * _div - Divides the second element by the top element on the stack.
  * @stack: The stack.
  * @line_number: Line number.
  * Return: N/A
  *
- * Description -
+ * Description - "_div" is an opcode that divides the second element on the
+ * stack by the top element on the stack. Works as the other arithmetic
+ * opcodes listed prior, but with the "( /= )" operator.
  */
 
 void _div(stack_t **stack, unsigned int line_number)
@@ -128,6 +130,9 @@ void _div(stack_t **stack, unsigned int line_number)
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
+	temp = (*stack)->next;
+	temp->n /= (*stack)->n;
+	_pop(stack, line_number);
 }
 /**
  * _mod -
