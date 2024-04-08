@@ -24,7 +24,7 @@ void _add(stack_t **stack, unsigned int line_number)
 	if (nodect < 2)
 	{
 		fprintf(stderr, "L%d: ", line_number);
-		fprintf(stderr, "can't add, stack to short");
+		fprintf(stderr, "can't add, stack too short");
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
