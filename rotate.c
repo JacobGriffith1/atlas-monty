@@ -41,3 +41,34 @@ void _rotl(stack_t **stack, unsigned int line_number)
 	(*stack)->prev = temp2;
 	*stack = temp1;
 }
+
+/**
+ * _rotr - Reverses the stack
+ * @stack: The stack.
+ * @line_number: Line number.
+ * Return: N/A
+ *
+ * Description -
+ */
+
+void _rotr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *temp = NULL;
+	(void)line_number;
+
+	if (*stack == NULL)
+		return;
+	if ((*stack)->next == NULL)
+		return;
+
+	temp = *stack;
+
+	for (; temp->next != NULL; temp = temp->next)
+		;
+
+	temp->prev->next = NULL;
+	temp->next = *stack;
+	temp->prev = NULL;
+	(*stack)->prev = temp;
+	*stack = temp;
+}
