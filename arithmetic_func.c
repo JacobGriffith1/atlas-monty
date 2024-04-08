@@ -63,7 +63,7 @@ void _sub(stack_t **stack, unsigned int line_number)
 	if (nodect < 2)
 	{
 		fprintf(stderr, "L%d: ", line_number);
-		fprintf(stderr, "");
+		fprintf(stderr, "can't sub, stack too short\n");
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
@@ -73,12 +73,14 @@ void _sub(stack_t **stack, unsigned int line_number)
 }
 
 /**
- * _mul -
+ * _mul - Multipies the top element on the stack by the second.
  * @stack: The stack.
  * @line_number: Line number.
  * Return: N/A
  *
- * Description -
+ * Description - "_mul" is an opcode that multiplies the top element of the
+ * stack by the second. Works as "_add" or "_sub", but with the "( *= )"
+ * operator appending "(*stack)->n" to "temp->n".
  */
 
 void _mul(stack_t **stack, unsigned int line_number)
@@ -93,10 +95,13 @@ void _mul(stack_t **stack, unsigned int line_number)
 	if (nodect < 2)
 	{
 		fprintf(stderr, "L%d: ", line_number);
-		fprintf(stderr, "");
+		fprintf(stderr, "can't mul, stack too short\n");
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
+	temp = (*stack)->next;
+	temp->n *= (*stack)->n;
+	_pop(stack, line_number);
 }
 /**
  * _div -
