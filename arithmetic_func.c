@@ -130,6 +130,13 @@ void _div(stack_t **stack, unsigned int line_number)
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
+	if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%u: ", line_number);
+		fprintf(stderr, "division by zero\n");
+		free_gvar();
+		exit(EXIT_FAILURE);
+	}
 	temp = (*stack)->next;
 	temp->n /= (*stack)->n;
 	_pop(stack, line_number);
@@ -159,6 +166,13 @@ void _mod(stack_t **stack, unsigned int line_number)
 	{
 		fprintf(stderr, "L%d: ", line_number);
 		fprintf(stderr, "can't mod, stack too short\n");
+		free_gvar();
+		exit(EXIT_FAILURE);
+	}
+	if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%u: ", line_number);
+		fprintf(stderr, "division by zero\n");
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
