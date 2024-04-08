@@ -48,7 +48,16 @@ void _rotl(stack_t **stack, unsigned int line_number)
  * @line_number: Line number.
  * Return: N/A
  *
- * Description -
+ * Description - "_rotr" is an opcode that reverses the stack. After setting
+ * "temp" to be a pointer to "*stack", "temp->next" is moved through the stack
+ * until it points at "NULL"; making the previous head of the stack reside at
+ * the bottom of it. "temp->prev->next" disconnects the last node from the
+ * previous node, effectively making the previous node the last node.
+ * "temp->next" is set to the original head of the stack, creating a circular
+ * linked list. "(*stack)->prev" is set to point to "temp", which is presently
+ * the last node, completing the circular link. Finally, "*stack = temp" will
+ * reverse the stack by having the pointer to the head of the stack point to
+ * the last node.
  */
 
 void _rotr(stack_t **stack, unsigned int line_number)
