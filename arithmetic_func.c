@@ -126,7 +126,7 @@ void _div(stack_t **stack, unsigned int line_number)
 	if (nodect < 2)
 	{
 		fprintf(stderr, "L%d: ", line_number);
-		fprintf(stderr, "");
+		fprintf(stderr, "can't div, stack too short\n");
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
@@ -135,12 +135,15 @@ void _div(stack_t **stack, unsigned int line_number)
 	_pop(stack, line_number);
 }
 /**
- * _mod -
+ * _mod - Computes the rest of the division of the second element by the top
+ * element on the stack.
  * @stack: The stack.
  * @line_number: Line number.
  * Return: N/A
  *
- * Description -
+ * Description - "_mod" is an opcode that coputes the rest of the division of
+ * the second element on the stack by the top element. Works as the other
+ * arithmetic opcodes listed prior, but with the "( %= )" operator.
  */
 
 void _mod(stack_t **stack, unsigned int line_number)
@@ -155,8 +158,11 @@ void _mod(stack_t **stack, unsigned int line_number)
 	if (nodect < 2)
 	{
 		fprintf(stderr, "L%d: ", line_number);
-		fprintf(stderr, "");
+		fprintf(stderr, "can't mod, stack too short\n");
 		free_gvar();
 		exit(EXIT_FAILURE);
 	}
+	temp = (*stack)->next;
+	temp->n %= (*stack)->n;
+	_pop(stack, line_number);
 }
